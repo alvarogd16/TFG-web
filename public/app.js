@@ -5,12 +5,6 @@ let wireSelected = null;
 
 let canvas;
 
-const switch_type = {
-    type: TYPES.SWITCH,
-    active: false,
-    size: {width: 3, height: 2}
-};
-
 function setup() {
     canvas = createCanvas(windowWidth - 345, windowHeight - 135);
     canvas.parent("canvas-container");

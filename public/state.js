@@ -11,26 +11,41 @@ let state = {
 
 let objectID = 0;
 
-const addInput = (input) => {
+// TO CHANGE
+const switch_type = {
+    type: TYPES.SWITCH,
+    active: false,
+    size: {width: 3, height: 2}
+};
+
+const addInput = (input_) => {
+    // Create a new intance of the input block to add it to state
+    let input = JSON.parse(JSON.stringify(input_));
+
+    input.pos = getTopLeftPointOfBlock(input.size.width, input.size.height);
     input.id = objectID + "_" + input.name;
     objectID++;
     state.inputs.push(input);
 }
 
-const addBlockToState = (block) => {
+const addBlockToState = (block_) => {
+    // Create a new intance of the block to add it to state
+    let block = JSON.parse(JSON.stringify(block_));
+
     block.id = objectID + "_" + block.name;
     objectID++;
+    block.pos = getTopLeftPointOfBlock(block.size.width, block.size.height);
     block.ports.forEach((port) => {
         let wire_name = block.id + "_" + port.name;
         port.id = wire_name;
+        
+        // Create a new intermediate signals to connect with others blocks
         if(port.type === PORT.OUT) {
             state.intermediate_signals.push(wire_name);
             port.connect = wire_name;
         }
     });
     state.blocks_instances.push(block);
-
-    console.log(state);
 }
 
 const addWireToState = (portFrom, portTo) => {
