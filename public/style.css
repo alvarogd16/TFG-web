@@ -1,0 +1,101 @@
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+
+    font-family: Arial;
+}
+
+header {
+    padding: 20px;
+    height: 60px;
+    font-size: 42px;
+    color: #FFFFFF;
+    background-color: #1f1f1f;
+}
+
+.blocks-menu {
+    width: 271px;
+    height: 100%;
+    padding: 10px;
+    /* background-color: #14213D; */
+    background-color: #2c2c2c;
+}
+
+#blocks-header {
+    max-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.blocks-button {
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+}
+
+#blocks-header-title {
+    /* vertical-align: middle; */
+    padding: 0 10px;
+    color: white;
+    width: 191px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.blocks-arrow {
+    display: inline-block;
+	width: 0;
+	height: 0;
+	border-top: 25px solid transparent;
+	border-right: 50px solid white;
+	border-bottom: 25px solid transparent;
+}
+
+.block-item {
+    display: inline-block;
+    margin: 5px;
+    padding: 0;
+    cursor: pointer;
+    text-align: center;
+    width: 120px;
+    height: 120px;
+    font-size: 32px;
+    color: #FFFFFF;
+    background-color: rgb(224, 113, 147);
+    border: 4px solid white;
+}
+
+.block-item:hover {
+    color: #000000;
+    background-color: #FFFFFF;
+    /* border-color: #000000; */
+}
+
+.block-selected {
+    background-color: #FFD1DC;
+}
+
+#canvas-container {
+    position: absolute;
+    left: 320px;
+    top: 115px;
+    border: 4px solid rgb(150, 150, 150);
+}
+
+#action-menu {
+    display: inline-block;
+    margin-left: 50px;
+}
+
+#action-menu button {
+    display: inline-block;
+    cursor: pointer;
+    width: 100px;
+    height: 60px;
+    border: 3px solid white;
+}

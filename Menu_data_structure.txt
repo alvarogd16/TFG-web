@@ -1,0 +1,27 @@
+Tipos de components
+
+--> Memorias
+ |-> Registro
+ |-> Banco registros
+ |-> RAM
+ |-> ROM
+
+--> Puertas lógicas
+ |-> AND
+ |-> OR
+ |-> XOR
+ |-> NAND
+ |-> NOR
+ |-> INV
+ 
+--> Más bloques
+ |-> MUX
+ |-> DEMUX
+ |-> Adder
+ |-> ALU
+
+--> Inputs
+ |-> Switch
+ 
+--> Outputs
+

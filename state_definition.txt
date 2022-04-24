@@ -1,0 +1,64 @@
+A state definition
+
+State is a js object (can export/inport in JSON) that define the canvas state.
+
+let state = {
+    inputs: [],
+    outputs: [],
+    blocks_instances: [],
+    intermediate_signals: [],
+    wires: []
+};
+
+
+inputs objects
+    {
+        type: "",
+        id: "type_XX",
+        out_ports: [
+            ports objects
+        ]
+    }
+
+outputs objects
+    {
+        type: "",
+        id: "type_XX",
+        in_ports: [
+            ports objects
+        ]
+    }
+
+blocks_instances objects
+    {
+        id: "",
+        name: "",
+        label: "",
+        type: "",
+        pos: {x: 0, y: 0},              // In pixel
+        size: {width: 0, height: 0},    // In grid cells
+        ports: [ ports objects ]
+    }
+
+ports objects
+    {
+        id: "",
+        type: (IN or OUT),
+        name: "",
+        connect: "",
+        pos: {x: 0, y: 0},
+        dir: X,
+        draw_index: X
+    }
+
+wires objects
+    {
+        from: "",
+        to: [],
+        corners: [
+            {
+                x: 0,
+                y: 0
+            }
+        ]
+    }

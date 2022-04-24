@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CPU BLOCK</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
+</head>
+<body>
+    <header>CPU BLOCK
+        <div id="action-menu">
+            <button id="action-draw">ADD BLOCK</button>
+            <button id="action-wiring">WIRING</button>
+            <button id="action-to-verilog">TO VERILOG</button>
+        </div>
+    </header>
+    <div class="blocks-menu">
+        <div id="blocks-header">
+            <button class="blocks-button" id="blocks-arrow-left"></button>
+            <p id="blocks-header-title"></p>
+            <button class="blocks-button" id="blocks-arrow-right"></button>
+        </div>
+        <div id="blocks-body"></div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        let socket = io();
+    </script>
+    
+    <script src="constants.js"></script>
+    <script src="state.js"></script>
+    <script src="Blocks.js"></script>
+    <script src="canvas-draw.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
