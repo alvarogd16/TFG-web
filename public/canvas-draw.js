@@ -7,9 +7,8 @@
  * Draw all the backgroung grid
  */
 function drawGrid() {
-    // These are colors (TO DO make colors const)
-    background(229);
-    stroke(175);
+    background(COLORS.bg_canvas);
+    stroke(COLORS.points_canvas);
 
     strokeWeight(4); // In px
 
@@ -28,13 +27,13 @@ function drawBlock(block) {
     if(block?.type === TYPES.RECT) {
         // Change to corner because the preview use the center to draw
         rectMode(CORNER);
-        fill('rgb(224, 113, 147)');
-        stroke(100);
+        fill(COLORS.block_fill);
+        stroke(COLORS.block_stroke);
         strokeWeight(2);
         // First draw the body
         rect(block.pos.x, block.pos.y, GRID_SIZE*block.size.width, GRID_SIZE*block.size.height);
 
-        fill(255);
+        fill(COLORS.labels);
         textSize(15);
         textAlign(CENTER, CENTER);
         noStroke();
@@ -51,8 +50,8 @@ function drawBlock(block) {
         let x = block.pos.x;
         let y = block.pos.y;
         rectMode(CORNER);
-        fill('rgb(224, 113, 147)');
-        stroke(100);
+        fill(COLORS.block_fill);
+        stroke(COLORS.block_stroke);
         strokeWeight(2);
         rect(x, y, 3*GRID_SIZE, 2*GRID_SIZE);
 
@@ -105,7 +104,7 @@ function drawBlock(block) {
 function drawPorts(block) {
     strokeWeight(7);
     block.ports.forEach(port => {
-        port.type === PORT.IN ? stroke(175) : stroke(75);
+        port.type === PORT.IN ? stroke(COLORS.port_in) : stroke(COLORS.port_out);
         port.focus ? strokeWeight(10) : strokeWeight(7);
         if(port.pos === undefined) {
             let posX = block.pos.x;
@@ -135,7 +134,7 @@ function drawPorts(block) {
  * You can see wire definition in state_definition.txt
  */
 function drawWire(wire) {
-    stroke(0);
+    stroke(COLORS.wire_off);
     strokeWeight(4);
 
     for(let i = 0; i < wire.corners.length-1; i++)
@@ -149,8 +148,8 @@ function drawWire(wire) {
 function drawPreviewBlock(block) {
     if(block?.type === TYPES.RECT) {
         rectMode(CENTER);
-        fill('#FFD1DC');
-        stroke(175);
+        fill(COLORS.prev_block_fill);
+        stroke(COLORS.block_fill);
         strokeWeight(2);
 
         let posX = roundToMultiple(mouseX, GRID_SIZE);

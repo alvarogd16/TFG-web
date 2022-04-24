@@ -10,15 +10,16 @@ const PORT = {IN: 0, OUT: 1};
 
 // Colors 🌈
 const COLORS = {
-    bg_canvas: "",
-    points_canvas: "",
-    block_fill: "",
-    block_stroke: "",
-    port_in: "",
-    port_out: "",
-    labels: "",
-    wire_off: "",
-    wire_on: ""
+    bg_canvas: "#DCDCDC",
+    points_canvas: "#C0C0C0",
+    block_fill: "#E07193",
+    prev_block_fill: "#FFD1DC",
+    block_stroke: "#696969",
+    port_in: "#A9A9A9",
+    port_out: "#404040",
+    labels: "#FFFFFF",
+    wire_off: "#000000",
+    wire_on: "#ffd700"
 }
 
 
