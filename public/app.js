@@ -1,81 +1,92 @@
-let mode = MODES.HALT;
-
-let portSelected = null;
-let wireSelected = null;
+import { APP_MODES } from "./constants.js"
+import { appMode } from "./modes/appModes.js"
+import { reDraw, drawGrid } from "./canvas/draw.js"
+import { isMouseInCanvas } from "./canvas/logic.js"
+import * as drawMode from "./modes/drawBlocks/drawBlocks.js"
+import * as wiringMode from "./modes/wiring/wiring.js"
+import { configMenu } from "./menus/configMenu/configMenu.js"
 
 let canvas;
 
-function setup() {
-    canvas = createCanvas(windowWidth - 345, windowHeight - 135);
+window.setup = () => {
+    canvas = createCanvas(windowWidth, windowHeight - 50);
     canvas.parent("canvas-container");
 
     frameRate(30);
-
-    mode = MODES.DRAW;
+    textFont('monospace')
 
     drawGrid();
 }
 
-function draw() {
+window.draw = () => {
     // This ckeck is to improve performance
-    if(isMouseInCanvas() && mode !== MODES.HALT) {
+    if(isMouseInCanvas() && !appMode.isMode(APP_MODES.halt) && (movedX !== 0 || movedY !== 0)) {
         reDraw();
-        switch (mode) {
-            case MODES.DRAW:
-                doDraw();
+        switch (appMode.getMode()) {
+            case APP_MODES.draw:
+                drawMode.update();
                 break;
             
-            case MODES.WIRING:
-                doWiring();
+            case APP_MODES.wiring:
+                wiringMode.update();
                 break;
         }
     }
 }
 
-function reDraw() {
-    drawGrid();
-    state.inputs.forEach(input => drawBlock(input));
-    state.blocks_instances.forEach(obj => drawBlock(obj));
-    state.wires.forEach(wire => drawWire(wire));
-}
-
-function mouseClicked() {
-    if(isMouseInCanvas() && mode !== MODES.HALT) {
-        switch (mode) {
-            case MODES.DRAW:
-                mouseClickedDraw();
+window.mouseClicked = () => {
+    if(isMouseInCanvas() && !appMode.isMode(APP_MODES.halt)) {
+        switch (appMode.getMode()) {
+            case APP_MODES.draw:
+                drawMode.mouseClicked();
                 break;
             
-            case MODES.WIRING:
-                mouseClickedWiring();
+            case APP_MODES.wiring:
+                wiringMode.mouseClicked();
                 break;
         }
     }
     reDraw();
 }
 
-function mousePressed() {
-    if(isMouseInCanvas() && mouseButton === LEFT && mode !== MODES.HALT) {
-        switch (mode) {
-            case MODES.DRAW:
+window.mousePressed = () => {
+    if(isMouseInCanvas() && !appMode.isMode(APP_MODES.halt)) {
+        switch (appMode.getMode()) {
+            case APP_MODES.draw:
+                drawMode.mousePressed();
                 break;
             
-            case MODES.WIRING:
-                mousePressedWiring();
+            case APP_MODES.wiring:
+                if(mouseButton === LEFT)
+                    wiringMode.mousePressed();
                 break;
         }
     }
 }
 
-function mouseReleased() {
-    if(isMouseInCanvas() && mouseButton === LEFT && mode !== MODES.HALT) {
-        switch (mode) {
-            case MODES.DRAW:
+window.mouseReleased = () => {
+    if(isMouseInCanvas() && mouseButton === LEFT && !appMode.isMode(APP_MODES.halt)) {
+        switch (appMode.getMode()) {
+            case APP_MODES.draw:
                 break;
             
-            case MODES.WIRING:
-                mouseReleasedWiring();
+            case APP_MODES.wiring:
+                wiringMode.mouseReleased();
                 break;
         }
     }
+}
+
+// Main menu
+document.getElementById("action-draw").onclick = () => {
+    appMode.changeMode(APP_MODES.draw);
+}
+
+document.getElementById("action-wiring").onclick = () => {
+    appMode.changeMode(APP_MODES.wiring);
+}
+
+document.getElementById("action-to-verilog").onclick = () => {
+    console.log("To verilog");
+    socket.emit("sendState", state);
 }

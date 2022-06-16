@@ -7,29 +7,95 @@ html,body
     overflow-x: hidden;
     overflow-y: hidden;
 
-    font-family: Arial;
+    font-family: monospace;
+}
+
+button {
+    font-family: monospace;
+}
+
+#canvas-container {
+    /* cursor: url('assets/pencil.svg'), auto; */
 }
 
 header {
-    padding: 20px;
-    height: 60px;
-    font-size: 42px;
+    display: flex;
+    padding: 5px 10px;
+    height: 40px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    font-size: 34px;
     color: #FFFFFF;
     background-color: #1f1f1f;
+    box-shadow: 0px 0px 10px black;
+    justify-content: space-between;
 }
 
-.blocks-menu {
-    width: 271px;
-    height: 100%;
-    padding: 10px;
+#blocks-menu {
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    top: 185px;
+    left: 20px;
+    width: 100px;
+    height: 400px;
+    border-radius: 10px;
     /* background-color: #14213D; */
-    background-color: #2c2c2c;
+    background-color: white; /* #2c2c2c */
+}
+
+#blocks-menu-header {
+    height: 15px;
+    background-color: #a1a1a1;
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+}
+
+#blocks-menu-header:hover {
+    cursor: move;
+}
+
+#blocks-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
 #blocks-header {
     max-height: 50px;
     display: flex;
     align-items: center;
+}
+
+#blocks-new {
+    position: absolute;
+    width: 50px;
+    height: 30px;
+    bottom: 10px;
+    left: 25px;
+    border-radius: 10px;
+}
+
+.new-block-menu {
+    position: absolute;
+    width: 500px;
+    height: 645px;
+    top: 100px;
+    left: 400px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.new-block-close {
+    position: absolute;
+    right: 15px;
+    top: -10px;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .blocks-button {
@@ -57,22 +123,21 @@ header {
 }
 
 .block-item {
-    display: inline-block;
-    margin: 5px;
-    padding: 0;
-    cursor: pointer;
-    text-align: center;
-    width: 120px;
-    height: 120px;
-    font-size: 32px;
-    color: #FFFFFF;
-    background-color: rgb(224, 113, 147);
-    border: 4px solid white;
+    display: flex;
+    color: black;
+    width: 80px;
+    height: 25px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #aaa9a9;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3px;
 }
 
 .block-item:hover {
     color: #000000;
-    background-color: #FFFFFF;
+    background-color: #a1a1a1;
     /* border-color: #000000; */
 }
 
@@ -82,20 +147,185 @@ header {
 
 #canvas-container {
     position: absolute;
-    left: 320px;
-    top: 115px;
-    border: 4px solid rgb(150, 150, 150);
+    left: 0px;
+    top: 50px;
 }
 
 #action-menu {
-    display: inline-block;
-    margin-left: 50px;
+    display: flex;
+    align-items: center;
 }
 
 #action-menu button {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     width: 100px;
-    height: 60px;
-    border: 3px solid white;
+    height: 30px;
+    margin: 10px;
+    border: 2px solid white;
+}
+
+.nbm-title {
+    padding: 0 20px;
+}
+
+.nbm-file-name {
+    cursor: pointer;
+    margin-left: 20px;
+}
+
+.nbm-size {
+    margin-top: 20px;
+}
+
+/* @keyframes nmb-border-left {
+    0% 	    {border-left-color: black;}
+    50% 	{border-left-color: red;}
+    100% 	{border-left-color: black;}
+}
+@keyframes nmb-border-right {
+    0% 	    {border-right-color: black;}
+    50% 	{border-right-color: red;}
+    100% 	{border-right-color: black;}
+}
+@keyframes nmb-border-top {
+    0% 	    {border-top-color: black;}
+    50% 	{border-top-color: red;}
+    100% 	{border-top-color: black;}
+}
+@keyframes nmb-border-bottom {
+    0% 	    {border-bottom-color: black;}
+    50% 	{border-bottom-color: red;}
+    100% 	{border-bottom-color: black;}
+}
+
+.nbm-block-animation-left {
+    animation-name: nmb-border-left;
+    animation-duration: 0.8s;
+}
+.nbm-block-animation-right {
+    animation-name: nmb-border-right;
+    animation-duration: 0.8s;
+}
+.nbm-block-animation-top {
+    animation-name: nmb-border-top;
+    animation-duration: 0.8s;
+}
+.nbm-block-animation-bottom {
+    animation-name: nmb-border-bottom;
+    animation-duration: 0.8s;
+} */
+
+.nbm-container {
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.nbm-size-block {
+    width: 120px;
+    height: 120px;
+    margin-top: 20px;
+    border: solid 4px black;
+    background-color: pink;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    position: relative;
+}
+
+.nbm-size-width {
+    width: 35px;
+}
+
+.nbm-size-label {
+    margin-left: 20px;
+}
+
+.nbm-size-height {
+    width: 35px;
+}
+
+.nbm-block-size-port {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: green;
+    top: -7px;
+    left: 23px;
+    border-radius: 6px;
+}
+
+.nbm-port-name {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.nbm-port-select-dir {
+    display: inline-block;
+    width: 82px;
+    margin: 0 5px;
+}
+
+.nbm-port-input-index {
+    display: inline-block;
+    width: 35px;
+    margin: 0 5px;
+}
+
+.nbm-create-button {
+    width: 90px;
+    height: 30px;
+    border-radius: 10px;
+    margin: 30px 0;
+    align-self: center;
+}
+
+.config-menu svg{
+    cursor: pointer;
+    fill: white;
+    margin-right: 20px;
+}
+
+.config-menu-container {
+    width: 300px;
+    background-color: white;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    z-index: 1;
+    border-radius: 7px;
+}
+
+.config-menu-item {
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.modals-type-error {
+    position: absolute;
+    background-color: red;
+    z-index: 1;
+    border-radius: 10px;
+    width: 600px;
+    top: 200px;
+    left: 350px;
+    color: white;
+}
+
+.modals-close {
+    position: absolute;
+    right: 15px;
+    top: -10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modals-error-text {
+    margin: 40px;
+    font-size: 20px;
 }

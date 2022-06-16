@@ -7,36 +7,31 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.js"></script>
 </head>
 <body>
-    <header>CPU BLOCK
+    <header>CB
         <div id="action-menu">
             <button id="action-draw">ADD BLOCK</button>
             <button id="action-wiring">WIRING</button>
             <button id="action-to-verilog">TO VERILOG</button>
         </div>
-    </header>
-    <div class="blocks-menu">
-        <div id="blocks-header">
-            <button class="blocks-button" id="blocks-arrow-left"></button>
-            <p id="blocks-header-title"></p>
-            <button class="blocks-button" id="blocks-arrow-right"></button>
-        </div>
-        <div id="blocks-body"></div>
-    </div>
 
-    <div id="canvas-container"></div>
+        <div class="config-menu">
+            <svg version="1.1" x="0px" y="0px"
+                width="24.75px" height="24.75px" viewBox="0 0 24.75 24.75">
+
+                <path d="M0,3.875c0-1.104,0.896-2,2-2h20.75c1.104,0,2,0.896,2,2s-0.896,2-2,2H2C0.896,5.875,0,4.979,0,3.875z M22.75,10.375H2
+                    c-1.104,0-2,0.896-2,2c0,1.104,0.896,2,2,2h20.75c1.104,0,2-0.896,2-2C24.75,11.271,23.855,10.375,22.75,10.375z M22.75,18.875H2
+                    c-1.104,0-2,0.896-2,2s0.896,2,2,2h20.75c1.104,0,2-0.896,2-2S23.855,18.875,22.75,18.875z"/>
+            </svg>
+        </div>
+    </header>
+
+    <div id="canvas-container" oncontextmenu="return false;"></div>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
         let socket = io();
     </script>
     
-    <script src="constants.js"></script>
-    <script src="state.js"></script>
-    <script src="Blocks.js"></script>
-    <script src="canvas-logic.js"></script>
-    <script src="canvas-draw.js"></script>
-    <script src="modes/draw.js"></script>
-    <script src="modes/wiring.js"></script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 </html>

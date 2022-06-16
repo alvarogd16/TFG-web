@@ -2,11 +2,21 @@
 // All functions to draw in the canvas
 // ----------------------------------
 
+import { BLOCK_TYPES, PORT_TYPES, DIRECTIONS, GRID_SIZE, COLORS, roundToMultiple} from "../constants.js"
+import { state } from "../state.js"
+
+
+export function reDraw() {
+    drawGrid();
+    state.inputs.forEach(input => drawBlock(input));
+    state.blocks_instances.forEach(obj => drawBlock(obj));
+    state.wires.nodes.forEach(wire => drawWire(wire));
+}
 
 /**
  * Draw all the backgroung grid
  */
-function drawGrid() {
+export function drawGrid() {
     background(COLORS.bg_canvas);
     stroke(COLORS.points_canvas);
 
@@ -24,12 +34,12 @@ function drawGrid() {
  * You can see block specification in blocks_definition.txt
  */
 function drawBlock(block) {
-    if(block?.type === TYPES.RECT) {
+    if(block?.type === BLOCK_TYPES.rect) {
         // Change to corner because the preview use the center to draw
         rectMode(CORNER);
         fill(COLORS.block_fill);
         stroke(COLORS.block_stroke);
-        strokeWeight(2);
+        strokeWeight(4);
         // First draw the body
         rect(block.pos.x, block.pos.y, GRID_SIZE*block.size.width, GRID_SIZE*block.size.height);
 
@@ -46,7 +56,7 @@ function drawBlock(block) {
         // Last draw the ports
         drawPorts(block);
 
-    } else if(block?.type === TYPES.SWITCH) {
+    } else if(block?.type === BLOCK_TYPES.switch) {
         let x = block.pos.x;
         let y = block.pos.y;
         rectMode(CORNER);
@@ -77,6 +87,14 @@ function drawBlock(block) {
         fill(175);
         rect(posX, posY, GRID_SIZE, GRID_SIZE);
 
+    } else if(block?.type === BLOCK_TYPES.in_value) {
+        // Change to corner because the preview use the center to draw
+        rectMode(CORNER);
+        fill(COLORS.block_fill);
+        stroke(COLORS.block_stroke);
+        strokeWeight(2);
+        // First draw the body
+        rect(block.pos.x, block.pos.y, GRID_SIZE*block.size.width, GRID_SIZE*block.size.height);
     } else {
         console.error("Error dibujando block. No existe el tipo o es incorrecto. f: drawBlock file: canvas-draw.js");
         return;
@@ -104,22 +122,22 @@ function drawBlock(block) {
 function drawPorts(block) {
     strokeWeight(7);
     block.ports.forEach(port => {
-        port.type === PORT.IN ? stroke(COLORS.port_in) : stroke(COLORS.port_out);
-        port.focus ? strokeWeight(10) : strokeWeight(7);
+        port.type === PORT_TYPES.in ? stroke(COLORS.port_in) : stroke(COLORS.port_out);
+        port.focus ? strokeWeight(10) : strokeWeight(8);
         if(port.pos === undefined) {
             let posX = block.pos.x;
             let posY = block.pos.y;
     
             switch(port.direction) {
-                case DIR.RIGHT:
+                case DIRECTIONS.right:
                     posX += GRID_SIZE*block.size.width;
-                case DIR.LEFT:
+                case DIRECTIONS.left:
                     posY += GRID_SIZE*port.draw_index;
                 break;
     
-                case DIR.BOTTOM:
+                case DIRECTIONS.bottom:
                     posY += GRID_SIZE*block.size.height;
-                case DIR.TOP:
+                case DIRECTIONS.top:
                     posX += GRID_SIZE*port.draw_index;
                 break;
             }
@@ -137,16 +155,18 @@ function drawWire(wire) {
     stroke(COLORS.wire_off);
     strokeWeight(4);
 
-    for(let i = 0; i < wire.corners.length-1; i++)
-        line(wire.corners[i].x, wire.corners[i].y, wire.corners[i+1].x, wire.corners[i+1].y);
+    line(wire.p1.x, wire.p1.y, wire.p2.x, wire.p2.y);
+
+    // for(let i = 0; i < wire.corners.length-1; i++)
+    //     line(wire.corners[i].x, wire.corners[i].y, wire.corners[i+1].x, wire.corners[i+1].y);
 }
 
 /**
  * Draw a preview of an block in the canvas. It's moves with the mouse.
  * Use the center of the mouse. Now only soport rect type.
  */
-function drawPreviewBlock(block) {
-    if(block?.type === TYPES.RECT) {
+export const drawPreviewBlock = (block) => {
+    if(block?.type === BLOCK_TYPES.rect) {
         rectMode(CENTER);
         fill(COLORS.prev_block_fill);
         stroke(COLORS.block_fill);

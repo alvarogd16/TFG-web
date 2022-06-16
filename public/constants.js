@@ -1,20 +1,23 @@
 // Constants
-const GRID_SIZE = 20;
+export const GRID_SIZE = 30;
 
 // Enums
-const TYPES = {RECT: 0, SWITCH: 1};
-const MODES = {HALT: 0, DRAW: 1, WIRING: 2};
-const WIRING_MODES = {HALT: 0, PRESSED: 1, RELEASED: 2};
-const DIR = {LEFT: 0, TOP: 1, RIGHT: 2, BOTTOM: 3};
-const PORT = {IN: 0, OUT: 1};
+export const BLOCK_TYPES = {rect: 'rect', switch: 'switch', inValue: 'inValue'};
+export const APP_MODES = {halt: 'halt', draw: 'draw', wiring: 'wiring'};
+export const WIRING_MODES = {halt: 'halt', pressed: 'pressed', released: 'released'};
+export const DIRECTIONS = {left: 'left', top: 'top', right: 'right', bottom: 'bottom'};
+export const PORT_TYPES = {in: 'in', out: 'out'};
+export const VALUES_FORMAT = {binary: "b", hex: "h", decimal: "d"}
+export const WIRE_DIRECTION = {vertical: 'vertical', horizontal: 'horizontal'}
 
 // Colors 🌈
-const COLORS = {
+export const COLORS = {
     bg_canvas: "#DCDCDC",
     points_canvas: "#C0C0C0",
     block_fill: "#E07193",
     prev_block_fill: "#FFD1DC",
-    block_stroke: "#696969",
+    // block_stroke: "#696969",
+    block_stroke: '#000000',
     port_in: "#A9A9A9",
     port_out: "#404040",
     labels: "#FFFFFF",
@@ -24,6 +27,6 @@ const COLORS = {
 
 
 // Usefull functions
-const roundToMultiple = (n, multiple) => {
+export const roundToMultiple = (n, multiple) => {
     return multiple*Math.round(n/multiple);
 }

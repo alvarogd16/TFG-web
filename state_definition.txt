@@ -7,7 +7,10 @@ let state = {
     outputs: [],
     blocks_instances: [],
     intermediate_signals: [],
-    wires: []
+    wires: {
+        adjacency_list: []
+        nodes: []
+    }
 };
 
 
@@ -15,6 +18,9 @@ inputs objects
     {
         type: "",
         id: "type_XX",
+        bit_width: X,
+        data_format: [b, h, d],
+        data: "",
         out_ports: [
             ports objects
         ]
@@ -53,12 +59,8 @@ ports objects
 
 wires objects
     {
-        from: "",
-        to: [],
-        corners: [
-            {
-                x: 0,
-                y: 0
-            }
-        ]
+        id: X
+        direction: WIRE_DIR.[HORIZONTAL, VERTICAL]
+        p1: {x: X, y: Y}
+        p2: {x: X, y: Y}
     }
