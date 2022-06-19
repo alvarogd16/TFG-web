@@ -1,7 +1,6 @@
-import { newBlockMenu } from "./newBlockMenu.js";
-import { getBlocks } from "../../api/api.js";
-
-import { blocksController } from "../../controllers/blocksController.js"
+import { newBlockMenu } from './newBlockMenu.js'
+import blockOptionMenu from './blockOptionsMenu.js'
+import { blocksController } from '../../controllers/blocksController.js'
 
 class BlockMenuGeneral {
     constructor(blocksController) {
@@ -23,13 +22,39 @@ class BlockMenuGeneral {
     }
 
     renderBlock(block) {
-        let that = this;
-        let blockElem = document.createElement('button');
-        blockElem.id = block.moduleName;
-        blockElem.className = "block-item";
-        blockElem.innerText = block.label;
-        blockElem.onclick = () => { that.selectBlock(block.id)};
-        document.getElementById("blocks-body").appendChild(blockElem);
+        const that = this;
+        const blockElem = document.createElement('div')
+        blockElem.id = block.moduleName
+        blockElem.className = 'block-container'
+
+        const blockItem = document.createElement('button')
+        blockItem.id = 'block-item-' + block.moduleName
+        blockItem.innerText = block.label
+        blockItem.className = 'block-item'
+        blockItem.onclick = () => { that.selectBlock(block.id) }
+
+        const blockOptions = document.createElement('button')
+        blockOptions.className = 'block-options'
+        blockOptions.onclick = () => { blockOptionMenu.show(block.id) }
+
+        blockElem.appendChild(blockItem)
+        blockElem.appendChild(blockOptions)
+        document.querySelector('#blocks-body').appendChild(blockElem)
+    }
+
+    renderBlocks() {
+        const blocksBody = document.querySelector('#blocks-body')
+
+        if(blocksBody) {
+            blocksBody.remove()
+            const newBlocksBody = document.createElement('div')
+            newBlocksBody.id = 'blocks-body'
+            this.blocksMenu.appendChild(newBlocksBody)
+        }
+
+        this.blocksController.getBlocks().forEach(block => {
+            this.renderBlock(block)
+        })
     }
 
     renderButtons() {
@@ -56,10 +81,10 @@ class BlockMenuGeneral {
 
     setSelected(blockID, selected) {
         if(selected) {
-            document.querySelector(`#${blockID}`).className += " block-selected";
+            document.querySelector(`#block-item-${blockID}`).className += " block-selected";
             this._blocksNew.disabled = true
         } else {
-            document.querySelector(`#${blockID}`).className = "block-item";
+            document.querySelector(`#block-item-${blockID}`).className = "block-item";
             this._blocksNew.disabled = false
         }
     }

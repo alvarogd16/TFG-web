@@ -3,7 +3,17 @@ import { blockMenuGeneral } from "../modes/drawBlocks/blockMenuGeneral.js";
 
 class BlocksController {
     constructor() {
-        this.blocks = blocksData
+        this.blocks = []
+
+        socket.emit('blocks:getBlocks')
+        socket.once('blocks:getBlocks:res', (res) => {
+            if(res.isError) {
+                console.error(res.errMsg, res.errContent)
+                return
+            }
+
+            this.blocks = res.content
+        })
     }
 
     loadBlocksFile(fileName) {
@@ -15,15 +25,34 @@ class BlocksController {
     }
 
     addBlock(blockObject) {
-        console.log("Adding block...", blockObject);
+        // console.log("Adding block...", blockObject);
         blockObject.id = blockObject.moduleName;
-        this.blocks.push(blockObject);
-        console.log(this.blocks);
-        blockMenuGeneral.renderBlock(blockObject);
+
+        socket.emit('blocks:createBlock', blockObject)
+        socket.once('blocks:createBlock:res', (res) => {
+            if(res.isError) {
+                console.error(res.errMsg, res.errContent)
+                return
+            }
+
+            this.blocks.push(blockObject)
+            blockMenuGeneral.renderBlock(blockObject)
+        })
     }
 
-    removeBlock(blockID) {
+    deleteBlock(blockID) {
+        console.log('Deleting block...')
+        socket.emit('blocks:deleteBlock', blockID)
+        socket.once('blocks:deleteBlock:res', (res) => {
+            if(res.isError) {
+                console.error(res.errMsg, res.errContent)
+                return
+            }
 
+            const blockIdx = this.blocks.findIndex(b => b.id === blockID)
+            this.blocks.splice(blockIdx, 1)
+            blockMenuGeneral.renderBlocks()
+        })
     }
 
     modifyBlock(blockID, modifyProperties) {

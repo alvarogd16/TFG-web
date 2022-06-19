@@ -20,12 +20,12 @@ module.exports = function(socket) {
 
     socket.on('blocks:updateBlock', (block) => {
         const res = blocks.updateBlock(block)
-        socket.emit('blocks:updateBlocks:res', res)
+        socket.emit('blocks:updateBlock:res', res)
     })
 
     socket.on('blocks:deleteBlock', (block) => {
         const res = blocks.deleteBlock(block)
-        socket.emit('blocks:deleteBlocks:res', res)
+        socket.emit('blocks:deleteBlock:res', res)
     })
 
     // state:load (state)
